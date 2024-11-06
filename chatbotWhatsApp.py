@@ -1,6 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
 import time
 
 #Colocar opciones
@@ -14,7 +14,27 @@ driver.set_window_size(1024,720)
 
 #Solicitar url especifica
 driver.get("https://web.whatsapp.com")
-time.sleep(3600)
 
-#//*[@id="pane-side"]/descendant::span[contains(@aria-label,'no leidos')]
-#//*[@id="main"]/descendant::div[@role='row']
+#Cambiamos
+while (True):
+    
+    #Expresiones xpath
+    #//*[@id="pane-side"]/descendant::span[contains(@aria-label,'no leidos')]
+    #//*[@id="main"]/descendant::div[@role='row']
+    #//div/div/div[1]/div[1]/div[1]/div/div[1]/div/span[1]/span
+    #//*[@id="main"]/footer/div[1]/div/span/div/div[2]/div[1]/div/div[1]
+
+    #Recuperamos nuevos mensajes
+    new_message =driver.find_element(By.XPATH,'//*[@id="pane-side"]/descendant::span[contains(@aria-label\'no leidos\')]')
+    new_message.click()
+    
+    #Obtener los mensajes del usuario
+    last_messages =driver.find_elements(By.XPATH,'//*[@id="main"]/descendant::div[@role=\'row\']')
+    last_message = last_messages[-1]
+    
+    #Mostrar mensaje seleccionado
+    last_message_text = last_message.find_element(By.XPATH, '//div/div/div[1]/div[1]/div[1]/div/div[1]/div/span[1]/span')
+    print(f'user message:{last_message.text}')
+   
+    
+
